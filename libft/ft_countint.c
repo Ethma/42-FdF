@@ -1,37 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test.c                                             :+:      :+:    :+:   */
+/*   ft_countint.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mabessir <mabessir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/12/13 15:35:21 by mabessir          #+#    #+#             */
-/*   Updated: 2017/12/13 16:28:45 by mabessir         ###   ########.fr       */
+/*   Created: 2017/11/13 10:45:39 by mabessir          #+#    #+#             */
+/*   Updated: 2017/11/13 11:27:27 by mabessir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <mlx.h>
+#include "libft.h"
 
-int		main()
+int		ft_countint(int n)
 {
-	void	*mlx;
-	void	*window;
-	int		x;
-	int		y;
+	size_t	len;
 
-	mlx = mlx_init();
-	window = mlx_new_window(mlx, 800, 600, "Bonjour");
-	y = 0;
-	while(y <= 600)
+	len = 0;
+	if (n == -2147483648)
+		return (11);
+	if (n < 0)
 	{
-		x = 0;
-		while (x <= 800)
-		{
-			mlx_pixel_put(mlx, window, x, y, 0xFFFFFF);
-			x++;
-		}
-		y++;
+		len++;
+		n = -n;
 	}
-	mlx_loop(mlx);
-	return (0);
+	if (n == 0)
+		return (1);
+	while (n)
+	{
+		n = n / 10;
+		len++;
+	}
+	return (len);
 }

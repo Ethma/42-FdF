@@ -1,37 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test.c                                             :+:      :+:    :+:   */
+/*   ft_strmapi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mabessir <mabessir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/12/13 15:35:21 by mabessir          #+#    #+#             */
-/*   Updated: 2017/12/13 16:28:45 by mabessir         ###   ########.fr       */
+/*   Created: 2017/11/10 10:29:55 by mabessir          #+#    #+#             */
+/*   Updated: 2017/11/15 15:00:46 by mabessir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <mlx.h>
+#include "libft.h"
 
-int		main()
+char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 {
-	void	*mlx;
-	void	*window;
-	int		x;
-	int		y;
+	unsigned int	i;
+	char			*str;
 
-	mlx = mlx_init();
-	window = mlx_new_window(mlx, 800, 600, "Bonjour");
-	y = 0;
-	while(y <= 600)
+	if (!s || !f)
+		return (0);
+	i = ft_strlen((char *)s);
+	str = ft_strnew(i);
+	if (!str)
+		return (NULL);
+	i = 0;
+	while (*s)
 	{
-		x = 0;
-		while (x <= 800)
-		{
-			mlx_pixel_put(mlx, window, x, y, 0xFFFFFF);
-			x++;
-		}
-		y++;
+		str[i] = (*f)(i, *(char *)s);
+		s++;
+		i++;
 	}
-	mlx_loop(mlx);
-	return (0);
+	return (str);
 }

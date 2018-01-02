@@ -1,31 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse.c                                            :+:      :+:    :+:   */
+/*   ft_strncat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mabessir <mabessir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: Mendy <Mendy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/12/14 09:05:11 by mabessir          #+#    #+#             */
-/*   Updated: 2018/01/02 15:41:49 by mabessir         ###   ########.fr       */
+/*   Created: 2017/09/29 16:53:46 by Mendy             #+#    #+#             */
+/*   Updated: 2017/11/15 15:17:37 by mabessir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fdf.h"
+#include "libft.h"
 
-void	entry_check(int fd)
+char	*ft_strncat(char *dest, const char *src, size_t n)
 {
-	t_stock	stock;
-	char	*str;
-	int		i;
-	char	**tab;
+	size_t i;
+	size_t j;
 
-	i = 0;
-	tab =(char **)malloc(sizeof(tab) * 100);
-	while (get_next_line(fd, &str))
+	if (n == 0)
+		return (dest);
+	i = ft_strlen(dest);
+	j = 0;
+	while (src[j] != '\0' && j < n)
 	{
-		ft_strsplit(str, ' ');
-		stock.points[x][y] = tab[x];
-		ft_putstr(tab[i]);
+		dest[i] = src[j];
 		i++;
+		j++;
 	}
+	dest[i] = '\0';
+	return (dest);
 }

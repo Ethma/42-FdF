@@ -1,37 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test.c                                             :+:      :+:    :+:   */
+/*   ft_memalloc.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mabessir <mabessir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/12/13 15:35:21 by mabessir          #+#    #+#             */
-/*   Updated: 2017/12/13 16:28:45 by mabessir         ###   ########.fr       */
+/*   Created: 2017/12/11 14:38:05 by mabessir          #+#    #+#             */
+/*   Updated: 2017/12/11 14:38:06 by mabessir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <mlx.h>
+#include "libft.h"
+#include <stdlib.h>
 
-int		main()
+void	*ft_memalloc(size_t size)
 {
-	void	*mlx;
-	void	*window;
-	int		x;
-	int		y;
+	void	*s;
 
-	mlx = mlx_init();
-	window = mlx_new_window(mlx, 800, 600, "Bonjour");
-	y = 0;
-	while(y <= 600)
-	{
-		x = 0;
-		while (x <= 800)
-		{
-			mlx_pixel_put(mlx, window, x, y, 0xFFFFFF);
-			x++;
-		}
-		y++;
-	}
-	mlx_loop(mlx);
-	return (0);
+	if ((s = malloc(size)) == NULL)
+		return (NULL);
+	ft_bzero(s, size);
+	return (s);
 }

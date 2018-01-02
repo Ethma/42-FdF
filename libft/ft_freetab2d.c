@@ -1,37 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test.c                                             :+:      :+:    :+:   */
+/*   ft_freetab2d.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mabessir <mabessir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/12/13 15:35:21 by mabessir          #+#    #+#             */
-/*   Updated: 2017/12/13 16:28:45 by mabessir         ###   ########.fr       */
+/*   Created: 2017/11/16 13:31:50 by mabessir          #+#    #+#             */
+/*   Updated: 2017/11/17 10:49:31 by mabessir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <mlx.h>
+#include "libft.h"
 
-int		main()
+void	ft_freetab2d(char **tab)
 {
-	void	*mlx;
-	void	*window;
-	int		x;
-	int		y;
+	int i;
 
-	mlx = mlx_init();
-	window = mlx_new_window(mlx, 800, 600, "Bonjour");
-	y = 0;
-	while(y <= 600)
+	i = 0;
+	while (tab[i])
 	{
-		x = 0;
-		while (x <= 800)
-		{
-			mlx_pixel_put(mlx, window, x, y, 0xFFFFFF);
-			x++;
-		}
-		y++;
+		free(tab[i]);
+		tab[i] = NULL;
+		i++;
 	}
-	mlx_loop(mlx);
-	return (0);
+	free(tab);
 }

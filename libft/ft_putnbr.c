@@ -1,37 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test.c                                             :+:      :+:    :+:   */
+/*   ft_putnbr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mabessir <mabessir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/12/13 15:35:21 by mabessir          #+#    #+#             */
-/*   Updated: 2017/12/13 16:28:45 by mabessir         ###   ########.fr       */
+/*   Created: 2017/11/10 14:23:35 by mabessir          #+#    #+#             */
+/*   Updated: 2017/11/10 15:34:45 by mabessir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <mlx.h>
+#include "libft.h"
 
-int		main()
+void	ft_putnbr(int n)
 {
-	void	*mlx;
-	void	*window;
-	int		x;
-	int		y;
+	long i;
 
-	mlx = mlx_init();
-	window = mlx_new_window(mlx, 800, 600, "Bonjour");
-	y = 0;
-	while(y <= 600)
+	i = n;
+	if (i < 0)
 	{
-		x = 0;
-		while (x <= 800)
-		{
-			mlx_pixel_put(mlx, window, x, y, 0xFFFFFF);
-			x++;
-		}
-		y++;
+		i = -i;
+		ft_putchar('-');
 	}
-	mlx_loop(mlx);
-	return (0);
+	if (i >= 10)
+	{
+		ft_putnbr(i / 10);
+		ft_putnbr(i % 10);
+	}
+	else
+		ft_putchar(i + '0');
 }

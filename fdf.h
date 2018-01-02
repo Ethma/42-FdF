@@ -1,37 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test.c                                             :+:      :+:    :+:   */
+/*   fdf.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mabessir <mabessir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/12/13 15:35:21 by mabessir          #+#    #+#             */
-/*   Updated: 2017/12/13 16:28:45 by mabessir         ###   ########.fr       */
+/*   Created: 2017/12/14 10:22:59 by mabessir          #+#    #+#             */
+/*   Updated: 2018/01/02 15:00:55 by mabessir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <mlx.h>
+#ifndef FDF_H
+# define FDF_H
 
-int		main()
+# include "GNL/get_next_line.h"
+# include "libft/libft.h"
+# include <stdlib.h>
+
+void	entry_check(int fd);
+
+typedef	struct		s_points
 {
-	void	*mlx;
-	void	*window;
-	int		x;
-	int		y;
+	int x;
+	int y;
+	int z;
+}					t_points;
 
-	mlx = mlx_init();
-	window = mlx_new_window(mlx, 800, 600, "Bonjour");
-	y = 0;
-	while(y <= 600)
-	{
-		x = 0;
-		while (x <= 800)
-		{
-			mlx_pixel_put(mlx, window, x, y, 0xFFFFFF);
-			x++;
-		}
-		y++;
-	}
-	mlx_loop(mlx);
-	return (0);
-}
+typedef struct		s_stock
+{
+	t_points	**points;
+}					t_stock;
+
+#endif

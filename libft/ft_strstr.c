@@ -1,37 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test.c                                             :+:      :+:    :+:   */
+/*   ft_strstr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mabessir <mabessir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/12/13 15:35:21 by mabessir          #+#    #+#             */
-/*   Updated: 2017/12/13 16:28:45 by mabessir         ###   ########.fr       */
+/*   Created: 2017/11/08 14:56:22 by mabessir          #+#    #+#             */
+/*   Updated: 2017/11/14 14:36:05 by mabessir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <mlx.h>
+#include "libft.h"
 
-int		main()
+char	*ft_strstr(const char *haystack, const char *needle)
 {
-	void	*mlx;
-	void	*window;
-	int		x;
-	int		y;
+	int i;
+	int j;
 
-	mlx = mlx_init();
-	window = mlx_new_window(mlx, 800, 600, "Bonjour");
-	y = 0;
-	while(y <= 600)
+	if (!*needle)
+		return ((char *)haystack);
+	i = 0;
+	while (haystack[i])
 	{
-		x = 0;
-		while (x <= 800)
+		j = 0;
+		while (needle[j] == haystack[i + j])
 		{
-			mlx_pixel_put(mlx, window, x, y, 0xFFFFFF);
-			x++;
+			if (needle[j + 1] == '\0')
+				return (((char *)haystack + i));
+			j++;
 		}
-		y++;
+		i++;
 	}
-	mlx_loop(mlx);
 	return (0);
 }

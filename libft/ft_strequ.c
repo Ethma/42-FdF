@@ -1,37 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test.c                                             :+:      :+:    :+:   */
+/*   ft_strequ.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mabessir <mabessir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/12/13 15:35:21 by mabessir          #+#    #+#             */
-/*   Updated: 2017/12/13 16:28:45 by mabessir         ###   ########.fr       */
+/*   Created: 2017/11/10 10:49:19 by mabessir          #+#    #+#             */
+/*   Updated: 2017/11/15 16:56:31 by mabessir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <mlx.h>
+#include "libft.h"
 
-int		main()
+int		ft_strequ(char const *s1, char const *s2)
 {
-	void	*mlx;
-	void	*window;
-	int		x;
-	int		y;
+	int i;
 
-	mlx = mlx_init();
-	window = mlx_new_window(mlx, 800, 600, "Bonjour");
-	y = 0;
-	while(y <= 600)
+	i = 0;
+	if (!s1 || !s2)
+		return (0);
+	if (ft_strlen(s1) != ft_strlen(s2))
+		return (0);
+	while (s1[i])
 	{
-		x = 0;
-		while (x <= 800)
-		{
-			mlx_pixel_put(mlx, window, x, y, 0xFFFFFF);
-			x++;
-		}
-		y++;
+		if (s1[i] != s2[i])
+			return (0);
+		i++;
 	}
-	mlx_loop(mlx);
-	return (0);
+	return (1);
 }

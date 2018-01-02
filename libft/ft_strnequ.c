@@ -1,37 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test.c                                             :+:      :+:    :+:   */
+/*   ft_strnequ.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mabessir <mabessir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/12/13 15:35:21 by mabessir          #+#    #+#             */
-/*   Updated: 2017/12/13 16:28:45 by mabessir         ###   ########.fr       */
+/*   Created: 2017/11/10 11:20:36 by mabessir          #+#    #+#             */
+/*   Updated: 2017/11/15 18:27:55 by mabessir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <mlx.h>
+#include "libft.h"
 
-int		main()
+int		ft_strnequ(char const *s1, char const *s2, size_t n)
 {
-	void	*mlx;
-	void	*window;
-	int		x;
-	int		y;
+	size_t i;
 
-	mlx = mlx_init();
-	window = mlx_new_window(mlx, 800, 600, "Bonjour");
-	y = 0;
-	while(y <= 600)
+	if (s1 == NULL || s2 == NULL)
+		return (0);
+	if (n == 0)
+		return (1);
+	if (ft_strlen(s1) != ft_strlen(s2))
+		return (0);
+	i = 0;
+	while (s1[i] && i < n)
 	{
-		x = 0;
-		while (x <= 800)
-		{
-			mlx_pixel_put(mlx, window, x, y, 0xFFFFFF);
-			x++;
-		}
-		y++;
+		if (s1[i] != s2[i])
+			return (0);
+		i++;
 	}
-	mlx_loop(mlx);
-	return (0);
+	return (1);
 }

@@ -1,31 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse.c                                            :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mabessir <mabessir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: Mendy <Mendy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/12/14 09:05:11 by mabessir          #+#    #+#             */
-/*   Updated: 2018/01/02 15:41:49 by mabessir         ###   ########.fr       */
+/*   Created: 2017/09/08 18:05:44 by Mendy             #+#    #+#             */
+/*   Updated: 2017/11/14 16:41:24 by mabessir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fdf.h"
+#include "libft.h"
 
-void	entry_check(int fd)
+char	*ft_strdup(const char *src)
 {
-	t_stock	stock;
-	char	*str;
 	int		i;
-	char	**tab;
+	char	*dest;
+	int		j;
 
+	j = ft_strlen(src);
 	i = 0;
-	tab =(char **)malloc(sizeof(tab) * 100);
-	while (get_next_line(fd, &str))
+	dest = ft_strnew(j);
+	if (!dest)
+		return (0);
+	while (src[i])
 	{
-		ft_strsplit(str, ' ');
-		stock.points[x][y] = tab[x];
-		ft_putstr(tab[i]);
+		dest[i] = src[i];
 		i++;
 	}
+	dest[i] = '\0';
+	return (dest);
 }

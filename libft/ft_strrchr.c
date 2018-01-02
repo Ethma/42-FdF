@@ -1,37 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test.c                                             :+:      :+:    :+:   */
+/*   ft_strrchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mabessir <mabessir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/12/13 15:35:21 by mabessir          #+#    #+#             */
-/*   Updated: 2017/12/13 16:28:45 by mabessir         ###   ########.fr       */
+/*   Created: 2017/11/09 14:00:42 by mabessir          #+#    #+#             */
+/*   Updated: 2017/11/13 13:18:46 by mabessir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <mlx.h>
+#include "libft.h"
 
-int		main()
+char	*ft_strrchr(const char *s, int c)
 {
-	void	*mlx;
-	void	*window;
-	int		x;
-	int		y;
+	int		i;
+	char	*str;
 
-	mlx = mlx_init();
-	window = mlx_new_window(mlx, 800, 600, "Bonjour");
-	y = 0;
-	while(y <= 600)
+	str = (char *)s;
+	i = ft_strlen(str);
+	while (*s)
+		s++;
+	while (i >= 0)
 	{
-		x = 0;
-		while (x <= 800)
-		{
-			mlx_pixel_put(mlx, window, x, y, 0xFFFFFF);
-			x++;
-		}
-		y++;
+		if (str[i] == c)
+			return ((char *)s);
+		i--;
+		s--;
 	}
-	mlx_loop(mlx);
-	return (0);
+	return (NULL);
 }

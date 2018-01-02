@@ -1,37 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test.c                                             :+:      :+:    :+:   */
+/*   ft_is_space.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mabessir <mabessir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/12/13 15:35:21 by mabessir          #+#    #+#             */
-/*   Updated: 2017/12/13 16:28:45 by mabessir         ###   ########.fr       */
+/*   Created: 2017/11/13 13:26:04 by mabessir          #+#    #+#             */
+/*   Updated: 2017/11/15 11:34:50 by Mendy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <mlx.h>
+#include "libft.h"
 
-int		main()
+int		ft_str_is_space(size_t i, size_t j, const char *s)
 {
-	void	*mlx;
-	void	*window;
-	int		x;
-	int		y;
-
-	mlx = mlx_init();
-	window = mlx_new_window(mlx, 800, 600, "Bonjour");
-	y = 0;
-	while(y <= 600)
+	while (i != j)
 	{
-		x = 0;
-		while (x <= 800)
-		{
-			mlx_pixel_put(mlx, window, x, y, 0xFFFFFF);
-			x++;
-		}
-		y++;
+		if (s[i] == ' ' || s[i] == '\t' || s[i] == '\n' ||
+				s[j] == ' ' || s[j] == '\t' || s[j] == '\n')
+			return (1);
+		i++;
+		j--;
 	}
-	mlx_loop(mlx);
 	return (0);
 }
