@@ -1,8 +1,8 @@
-NAME	= libft.a
-CC		= gcc
-O_DIR	= $(FILES:.c=.o)
-CFLAGS	= -c -Wall -Wextra -Werror
-FILES	= ft_atoi.c \
+NAME	 = libft.a
+CC		 = gcc
+O_DIR	 = $(FILES:.c=.o)
+CFLAGS	 = -c -Wall -Wextra -Werror
+FILES	 = ft_atoi.c \
 ft_bzero.c \
 ft_countint.c \
 ft_freetab2d.c \
@@ -59,8 +59,9 @@ ft_strsub.c \
 ft_strtrim.c \
 ft_tolower.c \
 ft_toupper.c \
+get_next_line.c \
 
-RM		= rm -f
+RM		 = rm -f
 
 all: $(NAME)
 
