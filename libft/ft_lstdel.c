@@ -1,18 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse.c                                            :+:      :+:    :+:   */
+/*   ft_lstdel.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mabessir <mabessir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/12/14 09:05:11 by mabessir          #+#    #+#             */
-/*   Updated: 2018/01/08 10:15:07 by mabessir         ###   ########.fr       */
+/*   Created: 2018/01/08 13:58:50 by mabessir          #+#    #+#             */
+/*   Updated: 2018/01/08 13:58:52 by mabessir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fdf.h"
+#include "libft.h"
 
-void	entry_check(int fd)
+void	ft_lstdel(t_list **alst, void (*del)(void*, size_t))
 {
+	t_list *list;
+	t_list *next_list;
 
+	list = *alst;
+	while (list)
+	{
+		next_list = list->next;
+		del(list->content, list->content_size);
+		free(list);
+		list = next_list;
+	}
+	*alst = NULL;
 }

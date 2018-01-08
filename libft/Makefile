@@ -59,6 +59,11 @@ ft_strsub.c \
 ft_strtrim.c \
 ft_tolower.c \
 ft_toupper.c \
+ft_lstadd.c \
+ft_lstdel.c \
+ft_lstdelone.c \
+ft_lstiter.c \
+ft_lstnew.c \
 get_next_line.c \
 
 RM		 = rm -f

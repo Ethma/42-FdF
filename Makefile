@@ -11,7 +11,7 @@ RM		 = rm -f
 
 all: $(NAME)
 
-$(NAME):
+$(NAME): $(FILES)
 		make -C libft/
 		make -C minilibx_macos/
 		$(CC) -c $(FILES)

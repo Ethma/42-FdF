@@ -6,7 +6,7 @@
 /*   By: mabessir <mabessir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/14 10:22:59 by mabessir          #+#    #+#             */
-/*   Updated: 2018/01/03 16:09:56 by mabessir         ###   ########.fr       */
+/*   Updated: 2018/01/08 13:28:09 by mabessir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,10 @@
 
 typedef	struct		s_points
 {
-	int x;
-	int y;
-	int z;
+	int		x;
+	int		y;
+	int		z;
+	char	**tab;
 }					t_points;
 
 typedef struct		s_stock

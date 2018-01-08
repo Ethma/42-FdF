@@ -1,18 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse.c                                            :+:      :+:    :+:   */
+/*   ft_lstiter.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mabessir <mabessir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/12/14 09:05:11 by mabessir          #+#    #+#             */
-/*   Updated: 2018/01/08 10:15:07 by mabessir         ###   ########.fr       */
+/*   Created: 2017/11/14 20:57:04 by rpinoit           #+#    #+#             */
+/*   Updated: 2018/01/08 13:59:12 by mabessir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fdf.h"
+#include "libft.h"
 
-void	entry_check(int fd)
+void	ft_lstiter(t_list *lst, void (*f)(t_list *elem))
 {
-
+	if (lst == NULL || f == NULL)
+		return ;
+	while (lst)
+	{
+		(*f)(lst);
+		lst = lst->next;
+	}
 }
