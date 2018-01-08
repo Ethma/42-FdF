@@ -6,7 +6,7 @@
 /*   By: mabessir <mabessir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/14 09:23:07 by mabessir          #+#    #+#             */
-/*   Updated: 2018/01/08 14:17:49 by mabessir         ###   ########.fr       */
+/*   Updated: 2018/01/08 17:03:51 by mabessir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ int	ft_count_lines(int fd)
 	int	i;
 	
 	i = 0;
-	printf("into ft_count_lines\n");
 	while (get_next_line(fd, &line))
 		i++;
 	close (fd);
@@ -28,29 +27,17 @@ int	ft_count_lines(int fd)
 int	fdf_start(int fd, const char *str)
 {
  	char	*line;
-	char	*buff;
-	t_stock	stock;
+	t_stock	*stock;
 	int		i;
-	int		j;
-
+	int		j;		
+	
 	j = ft_count_lines(fd);
 	i = 0;
-	if ((stock.points = (t_points **)malloc(sizeof(t_points *) * j)) == NULL)
-		return (0); 
-	printf("after malloc\n");
-	if (!(fd = open(str, O_RDONLY)))
+	if ((stock = (t_stock *)malloc(sizeof(t_stock) * 2)) == NULL)
 		return (0);
-	while (i < j)
-	{
-		if ((stock.points.tab = (char **)malloc(sizeof(char *) * 1)) == NULL)
-			return (0);
-		while (get_next_line(fd, &line) > 0)
-		{
-			printf("after gnl\n");
-			tab[i] = line;
-			i++;
-		}
-	}
+	if ((stock->points = (t_points **)malloc(sizeof(t_points *) * j)) == NULL)
+		return (0);
+	printf("%d", stock->points[i]->y);
 	return (1);
 }
 int		main(int ac, char **av)
