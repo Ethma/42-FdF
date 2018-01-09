@@ -6,7 +6,7 @@
 /*   By: mabessir <mabessir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/14 09:23:07 by mabessir          #+#    #+#             */
-/*   Updated: 2018/01/09 13:02:40 by mabessir         ###   ########.fr       */
+/*   Updated: 2018/01/09 13:08:18 by mabessir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	fdf_start(int fd, const char *str)
 		ft_putendl("test 1 passed");
 		tab = ft_strsplit(line, ' ');
 		ft_putendl("test 2 passed");
-		while (i < ft_strlen(line))
+		while (i < ft_
 		{
 			ft_putendl("test 3 passed");
 			tabint[j][i] = ft_atoi(tab[i]);
