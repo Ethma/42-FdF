@@ -6,7 +6,7 @@
 /*   By: mabessir <mabessir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/14 09:23:07 by mabessir          #+#    #+#             */
-/*   Updated: 2018/01/08 17:03:51 by mabessir         ###   ########.fr       */
+/*   Updated: 2018/01/09 13:02:40 by mabessir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,17 +27,32 @@ int	ft_count_lines(int fd)
 int	fdf_start(int fd, const char *str)
 {
  	char	*line;
-	t_stock	*stock;
+	char	**tab;
+	int		**tabint;
 	int		i;
-	int		j;		
+	int		j;
 	
 	j = ft_count_lines(fd);
-	i = 0;
-	if ((stock = (t_stock *)malloc(sizeof(t_stock) * 2)) == NULL)
-		return (0);
-	if ((stock->points = (t_points **)malloc(sizeof(t_points *) * j)) == NULL)
-		return (0);
-	printf("%d", stock->points[i]->y);
+	tabint = (int **)malloc(sizeof(int *) * j);
+	j = 0;
+	while (get_next_line(fd, &line))
+	{
+		tabint[j] = (int *)malloc(sizeof(int ) * ft_strlen(line));
+		i = 0;
+		ft_putendl("test 1 passed");
+		tab = ft_strsplit(line, ' ');
+		ft_putendl("test 2 passed");
+		while (i < ft_strlen(line))
+		{
+			ft_putendl("test 3 passed");
+			tabint[j][i] = ft_atoi(tab[i]);
+			ft_putendl("test 3.2 passed");
+			i++;
+		}
+		ft_putendl("test 4 passed");
+	}
+	ft_putendl("test 5 passed");
+	ft_freetab2d(tab);
 	return (1);
 }
 int		main(int ac, char **av)
