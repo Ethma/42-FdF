@@ -6,7 +6,7 @@
 /*   By: mabessir <mabessir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/14 10:22:59 by mabessir          #+#    #+#             */
-/*   Updated: 2018/01/09 12:54:45 by mabessir         ###   ########.fr       */
+/*   Updated: 2018/01/10 14:36:15 by mabessir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ typedef struct		s_stock
 	int			y;
 	int			z;
 	int			index;
+	char		**tab;
+	int			**tabint;
 }					t_stock;
 
 void	entry_check(int fd);

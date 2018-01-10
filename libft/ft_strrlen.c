@@ -6,20 +6,18 @@
 /*   By: mabessir <mabessir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/16 13:11:09 by mabessir          #+#    #+#             */
-/*   Updated: 2017/11/16 13:17:09 by mabessir         ###   ########.fr       */
+/*   Updated: 2018/01/10 14:52:44 by mabessir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		ft_strrlen(const char **tab)
+int		ft_strrlen(char **tab)
 {
 	int i;
 
 	i = 0;
-	while (*tab[i])
-	{
+	while (tab[i] != NULL)
 		i++;
-	}
 	return (i);
 }

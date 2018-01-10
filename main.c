@@ -6,7 +6,7 @@
 /*   By: mabessir <mabessir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/14 09:23:07 by mabessir          #+#    #+#             */
-/*   Updated: 2018/01/09 13:08:18 by mabessir         ###   ########.fr       */
+/*   Updated: 2018/01/10 16:04:00 by mabessir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,32 +27,29 @@ int	ft_count_lines(int fd)
 int	fdf_start(int fd, const char *str)
 {
  	char	*line;
-	char	**tab;
-	int		**tabint;
+	t_stock	*stock;
 	int		i;
 	int		j;
 	
+	stock = (t_stock *)malloc(sizeof(t_stock));
 	j = ft_count_lines(fd);
-	tabint = (int **)malloc(sizeof(int *) * j);
+	stock->tabint = (int **)malloc(sizeof(int *) * j);
 	j = 0;
+	if (!(fd = open(str, O_RDONLY)))
+		return (0);
 	while (get_next_line(fd, &line))
 	{
-		tabint[j] = (int *)malloc(sizeof(int ) * ft_strlen(line));
+		stock->tabint[j] = (int *)malloc(sizeof(int) * ft_strlen(line));
 		i = 0;
-		ft_putendl("test 1 passed");
-		tab = ft_strsplit(line, ' ');
-		ft_putendl("test 2 passed");
-		while (i < ft_
+		stock->tab = ft_strsplit(line, ' ');
+		stock->index = ft_strrlen(stock->tab);
+		while (stock->index--)
 		{
-			ft_putendl("test 3 passed");
-			tabint[j][i] = ft_atoi(tab[i]);
-			ft_putendl("test 3.2 passed");
+			stock->tabint[j][i] = ft_atoi(stock->tab[i]);
 			i++;
 		}
-		ft_putendl("test 4 passed");
 	}
-	ft_putendl("test 5 passed");
-	ft_freetab2d(tab);
+	ft_freetab2d(stock->tab);
 	return (1);
 }
 int		main(int ac, char **av)
