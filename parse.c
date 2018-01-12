@@ -6,7 +6,7 @@
 /*   By: mabessir <mabessir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/14 09:05:11 by mabessir          #+#    #+#             */
-/*   Updated: 2018/01/12 15:23:50 by mabessir         ###   ########.fr       */
+/*   Updated: 2018/01/12 16:34:28 by mabessir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,6 @@ t_stock			*fdf_start(int fd, const char *str)
 		return (0);
 	ft_get_tabint(fd, stock, line);
 	ft_freetab2d(stock->tab);
-	ft_getheight(stock);
+	ft_projections(stock, ft_getheight(stock));
 	return (stock);
 }

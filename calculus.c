@@ -6,13 +6,13 @@
 /*   By: mabessir <mabessir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/11 13:02:08 by mabessir          #+#    #+#             */
-/*   Updated: 2018/01/12 16:19:35 by mabessir         ###   ########.fr       */
+/*   Updated: 2018/01/12 16:35:31 by mabessir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void	ft_getheight(t_stock *stock)
+t_proj	**ft_getheight(t_stock *stock)
 {
 	t_proj	**proj;
 	int		x;
@@ -31,6 +31,7 @@ void	ft_getheight(t_stock *stock)
 		}
 		y++;
 	}
+	return (proj);
 }
 
 void	ft_projections(t_stock *stock, t_proj **proj)
@@ -46,7 +47,7 @@ void	ft_projections(t_stock *stock, t_proj **proj)
 		while (x < stock->index[y][0])
 		{
 			proj[y][x].x = ((sqrt(2)/2) * (x - y));
-			proj[y][x].y = ((sqrt(2/3) * z) - ((1/sqrt(6)) * (x +y)));
+			proj[y][x].y = ((sqrt(2/3) * proj[y][x].z) - ((1/sqrt(6)) * (x + y)));
 			x++;
 		}
 		y++;
