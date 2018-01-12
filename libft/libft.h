@@ -6,7 +6,7 @@
 /*   By: mabessir <mabessir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/08 12:57:54 by mabessir          #+#    #+#             */
-/*   Updated: 2018/01/10 14:53:51 by mabessir         ###   ########.fr       */
+/*   Updated: 2018/01/12 14:47:43 by mabessir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ void	ft_putnbr_fd(int n, int fd);
 int		ft_countint(int n);
 char	*ft_itoa(int n);
 int		ft_str_is_space(size_t i, size_t j, const char *s);
-int		ft_intrlen(const int **tab);
+int		ft_intrlen(int **tab, int size);
 int		ft_strrlen(char **tab);
 void	ft_freetab2d(char	**tab);
 

@@ -4,6 +4,7 @@ O_DIR	 = $(FILES:.c=.o)
 CFLAGS	 = -Wall -Wextra -Werror
 FILES	 = main.c \
 parse.c \
+calculus.c \
 
 L        = -L./libft/ -lft -L./minilibx_macos/ -lmlx -framework OpenGL -framework AppKit \
 

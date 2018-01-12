@@ -6,7 +6,7 @@
 /*   By: mabessir <mabessir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/14 10:22:59 by mabessir          #+#    #+#             */
-/*   Updated: 2018/01/11 15:32:26 by mabessir         ###   ########.fr       */
+/*   Updated: 2018/01/12 14:48:37 by mabessir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ typedef struct		s_stock
 	int			**index;
 	char		**tab;
 	int			**tabint;
+	int			linenum;
 }					t_stock;
 
 typedef	struct		s_proj
@@ -42,6 +43,6 @@ typedef	struct		s_proj
 }					t_proj;
 
 t_stock	*fdf_start(int fd, const char *str);
-void	ft_projections(t_stock	*stock);
-
+void	ft_projections(t_stock	*stock, t_proj **proj);
+void	ft_getheight(t_stock *stock);
 #endif

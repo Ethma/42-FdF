@@ -6,13 +6,13 @@
 /*   By: mabessir <mabessir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/14 09:05:11 by mabessir          #+#    #+#             */
-/*   Updated: 2018/01/11 15:33:19 by mabessir         ###   ########.fr       */
+/*   Updated: 2018/01/12 15:23:50 by mabessir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-static	int	ft_count_lines(int fd)
+static	int		ft_count_lines(int fd)
 {
 	char	*line;
 	int		i;
@@ -24,7 +24,7 @@ static	int	ft_count_lines(int fd)
 	return (i);
 }
 
-void		ft_get_tabint(int fd, t_stock *stock, char *line)
+static	void	ft_get_tabint(int fd, t_stock *stock, char *line)
 {
 	int i;
 	int j;
@@ -46,7 +46,7 @@ void		ft_get_tabint(int fd, t_stock *stock, char *line)
 	}
 }
 
-t_stock		*fdf_start(int fd, const char *str)
+t_stock			*fdf_start(int fd, const char *str)
 {
 	char	*line;
 	t_stock	*stock;
@@ -57,10 +57,11 @@ t_stock		*fdf_start(int fd, const char *str)
 	j = ft_count_lines(fd);
 	stock->tabint = (int **)malloc(sizeof(int *) * j);
 	stock->index = (int **)malloc(sizeof(int *) * j);
+	stock->linenum = j;
 	if (!(fd = open(str, O_RDONLY)))
 		return (0);
 	ft_get_tabint(fd, stock, line);
-	printf("%d", stock->index[3][0]);
 	ft_freetab2d(stock->tab);
+	ft_getheight(stock);
 	return (stock);
 }
