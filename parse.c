@@ -6,7 +6,7 @@
 /*   By: mabessir <mabessir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/14 09:05:11 by mabessir          #+#    #+#             */
-/*   Updated: 2018/01/12 16:34:28 by mabessir         ###   ########.fr       */
+/*   Updated: 2018/01/15 10:59:44 by mabessir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,12 +46,13 @@ static	void	ft_get_tabint(int fd, t_stock *stock, char *line)
 	}
 }
 
-t_stock			*fdf_start(int fd, const char *str)
+int			fdf_start(int fd, const char *str)
 {
 	char	*line;
 	t_stock	*stock;
 	int		i;
 	int		j;
+	t_proj	**proj;
 
 	stock = (t_stock *)malloc(sizeof(t_stock));
 	j = ft_count_lines(fd);
@@ -62,6 +63,7 @@ t_stock			*fdf_start(int fd, const char *str)
 		return (0);
 	ft_get_tabint(fd, stock, line);
 	ft_freetab2d(stock->tab);
-	ft_projections(stock, ft_getheight(stock));
-	return (stock);
+	proj = ft_projections(stock, ft_getheight(stock));
+	draw_points(proj, stock);
+	return (1);
 }
