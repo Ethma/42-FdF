@@ -6,7 +6,7 @@
 /*   By: mabessir <mabessir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/11 13:02:08 by mabessir          #+#    #+#             */
-/*   Updated: 2018/01/15 15:20:52 by mabessir         ###   ########.fr       */
+/*   Updated: 2018/01/16 12:25:04 by mabessir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,21 +35,21 @@ t_proj		**ft_getheight(t_stock *stock)
 	return (proj);
 }
 
-static	int	check_lowest_point(t_proj **proj, t_stock *stock)
+static	int	check_lowest_xpoint(t_proj **proj, t_stock *stock)
 {
 	int x;
 	int y;
 	int point;
 
 	y = 0;
-	point = proj[0][0].x;
+	point = 0;
 	while (y < stock->linenum)
 	{
 		x = 0;
 		while (x < stock->index[y][0])
 		{
 			if (proj[y][x].x < point)
-				point = proj[x][y].x;
+				point = proj[y][x].x;
 			x++;
 		}
 		y++;
@@ -57,35 +57,29 @@ static	int	check_lowest_point(t_proj **proj, t_stock *stock)
 	return (point < 0 ? -point : point);
 }
 
-static	int	check_lowest_line_point(t_proj **proj, t_stock *stock, int y)
+static	int	check_lowest_ypoint(t_proj **proj, t_stock *stock)
 {
 	int x;
+	int y;
 	int point;
 
-	point = proj[0][0].x;
-	while (x < stock->index[y][0])
+	y = 0;
+	point = 0;
+	while (y < stock->linenum)
 	{
-		if (proj[y][x].x < point)
-			point = proj[x][y].x;
-		x++;
+		x = 0;
+		while (x < stock->index[y][0])
+		{
+			if (proj[y][x].y < point)
+				point = proj[y][x].y;
+			x++;
+		}
+		y++;
 	}
 	return (point < 0 ? -point : point);
 }
 
-static	int	check_highest_line_point(t_proj **proj, t_stock *stock, int y)
-{
-	int x;
-	int point;
 
-	point = proj[0][0].x;
-	while (x < stock->index[y][0])
-	{
-		if (proj[y][x].x > point)
-			point = proj[x][y].x;
-		x++;
-	}
-	return (point < 0 ? -point : point);
-}
 
 
 t_proj		**ft_projections(t_stock *stock, t_proj **proj)
@@ -100,10 +94,10 @@ t_proj		**ft_projections(t_stock *stock, t_proj **proj)
 		x = 0;
 		while (x < stock->index[y][0])
 		{
-			proj[y][x].z = proj[y][x].z * 500 / stock->linenum;
-			proj[y][x].x = (0.5 * (x * 500 / stock->index[y][0])) - (0.75 * (y * (500 / 2) / stock->linenum));
-			proj[y][x].y = proj[y][x].z + ((0.5 / 2) * (x * 500 / stock->index[y][0])) + ((0.75 / 2) * (y * 500 / stock->linenum));
-			printf("x = %f ; y = %f ; z = %f\n", proj[y][x].x, proj[y][x].y, proj[y][x].z);
+			proj[y][x].z = proj[y][x].z * WIN_H / stock->index[y][0];
+			proj[y][x].x = (0.5 * (x * WIN_W / stock->index[y][0])) - (0.75 * (y * WIN_H / stock->linenum));
+			proj[y][x].y = proj[y][x].z + ((0.5 / 2) * (x * WIN_W / stock->index[y][0])) + ((0.75 / 2) * (y * WIN_H / stock->linenum));
+		//	printf("before x : %d, y : %d x = %f ; y = %f ; z = %f\n", x, y, proj[y][x].x, proj[y][x].y, proj[y][x].z);
 			x++;
 		}
 		y++;
@@ -115,23 +109,30 @@ int		draw_points(t_proj **proj, t_stock *stock)
 {
 	int	x;
 	int y;
-	int point;
+	int xpoint;
+	int ypoint;
 
 	stock->mlx = mlx_init();
 	stock->window = mlx_new_window(stock->mlx, WIN_W, WIN_H, "FDF");
 	stock->image = mlx_new_image(stock->mlx, WIN_W, WIN_H);
 	y = 0;
-	point = check_lowest_point(proj, stock);
-	while (y < stock->linenum)
+	ft_putendl("yolo");
+	xpoint = check_lowest_xpoint(proj, stock);
+	ypoint = check_lowest_ypoint(proj, stock);
+	printf("xpoint = %d, ypoint = %d\n", xpoint, ypoint);
+	ft_putendl("yolo");
+	while (y < stock->linenum - 1)
 	{
 		x = 0;
-		while (x < stock->index[y][0])
+		while (x < stock->index[y][0] - 1)
 		{
-			draw_lines(proj[y][x].x, proj[y][x].y, proj[y][x].x+1, proj[y][x].y+1, stock);
+			draw_lines(proj[y][x].x+xpoint, proj[y][x].y+ypoint, proj[y][x+1].x+xpoint, proj[y][x+1].y+ypoint, stock);
 			x++;
+			printf("Abefore x : %d, y : %d x = %f ; y = %f ; z = %f\n", x, y, proj[y][x].x+xpoint, proj[y][x].y+ypoint, proj[y][x].z);
 		}
 		y++;
 	}
+	ft_putendl("ultrayolo");
 	mlx_put_image_to_window(stock->mlx, stock->window, stock->image, 0, 0);
 	mlx_loop(stock->mlx);
 	return (1);

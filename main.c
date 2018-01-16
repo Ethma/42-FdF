@@ -6,7 +6,7 @@
 /*   By: mabessir <mabessir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/14 09:23:07 by mabessir          #+#    #+#             */
-/*   Updated: 2018/01/15 10:15:18 by mabessir         ###   ########.fr       */
+/*   Updated: 2018/01/16 10:47:07 by mabessir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,15 @@ int		main(int ac, char **av)
 	int fd;
 
 	if (ac < 2)
+	{
 		ft_putendl("usage : ./fdf input_file");
+		return (0);
+	}
 	if (ac > 2)
+	{
 		ft_putendl("ERROR : only one file needed");
+		return (0);
+	}
 	if (!(fd = open(av[1], O_RDONLY)))
 		return (0);
 	if (!fdf_start(fd, av[1]))

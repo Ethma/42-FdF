@@ -6,7 +6,7 @@
 /*   By: mabessir <mabessir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/13 15:35:21 by mabessir          #+#    #+#             */
-/*   Updated: 2018/01/15 15:26:38 by mabessir         ###   ########.fr       */
+/*   Updated: 2018/01/16 12:08:42 by mabessir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,4 +34,36 @@ int		main()
 	draw_lines(mlx, window, 10, 10, 40, 40);
 	mlx_loop(mlx);
 	return (0);
+}
+
+static	int	check_lowest_line_point(t_proj **proj, t_stock *stock, int y)
+{
+	int x;
+	int point;
+
+	x = 0;
+	point = proj[0][0].x;
+	while (x < stock->index[y][0])
+	{
+		if (proj[y][x].x < point)
+			point = proj[x][y].x;
+		x++;
+	}
+	return (point < 0 ? -point : point);
+}
+
+static	int	check_highest_line_point(t_proj **proj, t_stock *stock, int y)
+{
+	int x;
+	int point;
+
+	x = 0;
+	point = proj[0][0].x;
+	while (x < stock->index[y][0])
+	{
+		if (proj[y][x].x > point)
+			point = proj[x][y].x;
+		x++;
+	}
+	return (point < 0 ? -point : point);
 }
