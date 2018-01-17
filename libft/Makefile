@@ -65,6 +65,7 @@ ft_lstdelone.c \
 ft_lstiter.c \
 ft_lstnew.c \
 get_next_line.c \
+ft_freetabint2d.c \
 
 RM		 = rm -f
 

@@ -6,7 +6,7 @@
 /*   By: mabessir <mabessir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/13 15:35:21 by mabessir          #+#    #+#             */
-/*   Updated: 2018/01/16 12:08:42 by mabessir         ###   ########.fr       */
+/*   Updated: 2018/01/17 11:19:38 by mabessir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	draw_lines(void *mlx, void *window, int x1, int y1, int x2, int y2)
 	x = x1;
 	while (x <= x2)
 	{
-		mlx_pixel_put(mlx, window, x, y1+((y2 - y1) * (x - x1)) / (x2 - x1), 0xFFFFFF);
+		mlx_pixel_put_to_image(stock->image, x, y1+((y2 - y1) * (x - x1)) / (x2 - x1), 0xFFFFFF);
 		x++;
 	}
 }

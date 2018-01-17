@@ -6,6 +6,7 @@ FILES	 = main.c \
 parse.c \
 calculus.c \
 window.c \
+points.c \
 
 L        = -L./libft/ -lft -L./minilibx_macos/ -lmlx -framework OpenGL -framework AppKit \
 

@@ -6,7 +6,7 @@
 /*   By: mabessir <mabessir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/11 13:02:08 by mabessir          #+#    #+#             */
-/*   Updated: 2018/01/16 12:25:04 by mabessir         ###   ########.fr       */
+/*   Updated: 2018/01/17 16:12:22 by mabessir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,55 +32,9 @@ t_proj		**ft_getheight(t_stock *stock)
 		}
 		y++;
 	}
+	ft_freetabint2d(stock->tabint, stock->linenum);
 	return (proj);
 }
-
-static	int	check_lowest_xpoint(t_proj **proj, t_stock *stock)
-{
-	int x;
-	int y;
-	int point;
-
-	y = 0;
-	point = 0;
-	while (y < stock->linenum)
-	{
-		x = 0;
-		while (x < stock->index[y][0])
-		{
-			if (proj[y][x].x < point)
-				point = proj[y][x].x;
-			x++;
-		}
-		y++;
-	}
-	return (point < 0 ? -point : point);
-}
-
-static	int	check_lowest_ypoint(t_proj **proj, t_stock *stock)
-{
-	int x;
-	int y;
-	int point;
-
-	y = 0;
-	point = 0;
-	while (y < stock->linenum)
-	{
-		x = 0;
-		while (x < stock->index[y][0])
-		{
-			if (proj[y][x].y < point)
-				point = proj[y][x].y;
-			x++;
-		}
-		y++;
-	}
-	return (point < 0 ? -point : point);
-}
-
-
-
 
 t_proj		**ft_projections(t_stock *stock, t_proj **proj)
 {
@@ -92,11 +46,11 @@ t_proj		**ft_projections(t_stock *stock, t_proj **proj)
 	while (y < stock->linenum)
 	{
 		x = 0;
-		while (x < stock->index[y][0])
+		while (x < stock->index[0][0])
 		{
-			proj[y][x].z = proj[y][x].z * WIN_H / stock->index[y][0];
-			proj[y][x].x = (0.5 * (x * WIN_W / stock->index[y][0])) - (0.75 * (y * WIN_H / stock->linenum));
-			proj[y][x].y = proj[y][x].z + ((0.5 / 2) * (x * WIN_W / stock->index[y][0])) + ((0.75 / 2) * (y * WIN_H / stock->linenum));
+			proj[y][x].z = proj[y][x].z * (WIN_H / 2) / stock->index[y][0];
+			proj[y][x].x = (0.5 * (x * (WIN_W / 2) / stock->index[y][0])) - (0.75 * (y * (WIN_H / 2) / stock->linenum));
+			proj[y][x].y = proj[y][x].z + ((0.5 / 2) * (x * (WIN_W / 2) / stock->index[y][0])) + ((0.75 / 2) * (y * (WIN_H / 2) / stock->linenum));
 		//	printf("before x : %d, y : %d x = %f ; y = %f ; z = %f\n", x, y, proj[y][x].x, proj[y][x].y, proj[y][x].z);
 			x++;
 		}
@@ -124,9 +78,9 @@ int		draw_points(t_proj **proj, t_stock *stock)
 	while (y < stock->linenum - 1)
 	{
 		x = 0;
-		while (x < stock->index[y][0] - 1)
+		while (x < stock->index[0][0] - 1)
 		{
-			draw_lines(proj[y][x].x+xpoint, proj[y][x].y+ypoint, proj[y][x+1].x+xpoint, proj[y][x+1].y+ypoint, stock);
+			draw_lines(proj[y][x].x+xpoint+50, proj[y][x].y+ypoint+100, proj[y][x+1].x+xpoint+50, proj[y][x+1].y+ypoint+100, stock);
 			x++;
 			printf("Abefore x : %d, y : %d x = %f ; y = %f ; z = %f\n", x, y, proj[y][x].x+xpoint, proj[y][x].y+ypoint, proj[y][x].z);
 		}

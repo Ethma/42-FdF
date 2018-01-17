@@ -6,13 +6,13 @@
 /*   By: mabessir <mabessir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/15 14:00:56 by mabessir          #+#    #+#             */
-/*   Updated: 2018/01/16 12:01:15 by mabessir         ###   ########.fr       */
+/*   Updated: 2018/01/17 16:14:10 by mabessir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void		mlx_pixel_put_to_image(void *img, int x, int y, int color)
+void			mlx_pixel_put_to_image(void *img, int x, int y, int color)
 {
 	char	*data;
 	int		bpp;
@@ -34,14 +34,47 @@ void		mlx_pixel_put_to_image(void *img, int x, int y, int color)
 	color /= 256;
 }
 
-void	draw_lines(int x1, int y1, int x2, int y2, t_stock *stock)
+static	void	draw_lines_x(int x1, int y1, int x2, int y2, t_stock *stock)
 {
 	int x;
 
 	x = x1;
-	while (x <= x2)
+	if (x <= x2)
 	{
-		mlx_pixel_put_to_image(stock->image, x, y1+((y2 - y1) * (x - x1)) / (x2 - x1), 0xFFFFFF);
-		x++;
+		while (x <= x2)
+		{
+			mlx_pixel_put_to_image(stock->image, x, y1+((y2 - y1) * (x - x1)) / (x2 - x1), 0xFFFFFF);
+			x++;
+		}
+	}
+}
+
+static	void	draw_lines_y(int x1, int y1, int x2, int y2, t_stock *stock)
+{
+	int x;
+
+	x = x1;
+	if (x <= x2)
+	{
+		while (x <= x2)
+		{
+			mlx_pixel_put_to_image(stock->image, x, y1+((y2 - y1) * (x - x1)) / (x2 - x1), 0xFFFFFF);
+			x++;
+		}
+	}
+}
+
+void			draw_lines(int x1, int y1, int x2, int y2, t_stock *stock)
+{
+	int x;
+
+	x = x1;
+	if (x <= x2)
+	{
+		while (x <= x2)
+		{
+			mlx_pixel_put_to_image(stock->image, x, y1+((y2 - y1) * (x - x1)) / (x2 - x1), 0xFFFFFF);
+			x++;
+		}
 	}
 }
