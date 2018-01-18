@@ -6,7 +6,7 @@
 /*   By: mabessir <mabessir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/11 13:02:08 by mabessir          #+#    #+#             */
-/*   Updated: 2018/01/17 16:12:22 by mabessir         ###   ########.fr       */
+/*   Updated: 2018/01/18 16:04:58 by mabessir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,13 @@ t_proj		**ft_getheight(t_stock *stock)
 	{
 		proj[y] =(t_proj *)malloc(sizeof(t_proj) * stock->index[y][0]);
 		x = 0;
-		while (x < stock->index[y][0]) 
+		while (x < stock->index[0][0]) 
 		{
 			proj[y][x].z = stock->tabint[y][x];
 			proj[y][x].z = proj[y][x].z * -1;
+			proj[y][x].x = x * ((WIN_W / 2) / stock->index[0][0]);
+			proj[y][x].y = y * ((WIN_H / 2) / stock->linenum);
+			proj[y][x].z = proj[y][x].z * ((WIN_W / 2) / stock->index[y][0]);
 			x++;
 		}
 		y++;
@@ -48,15 +51,20 @@ t_proj		**ft_projections(t_stock *stock, t_proj **proj)
 		x = 0;
 		while (x < stock->index[0][0])
 		{
-			proj[y][x].z = proj[y][x].z * (WIN_H / 2) / stock->index[y][0];
-			proj[y][x].x = (0.5 * (x * (WIN_W / 2) / stock->index[y][0])) - (0.75 * (y * (WIN_H / 2) / stock->linenum));
-			proj[y][x].y = proj[y][x].z + ((0.5 / 2) * (x * (WIN_W / 2) / stock->index[y][0])) + ((0.75 / 2) * (y * (WIN_H / 2) / stock->linenum));
-		//	printf("before x : %d, y : %d x = %f ; y = %f ; z = %f\n", x, y, proj[y][x].x, proj[y][x].y, proj[y][x].z);
+			proj[y][x].x = (0.5 * proj[y][x].x) - (0.75 * proj[y][x].y);
+			proj[y][x].y = proj[y][x].z + ((0.5 / 2) * proj[y][x].x) + ((0.75 / 2) * proj[y][x].y);
 			x++;
 		}
 		y++;
 	}
 	return (proj);
+}
+
+static	void	ft_scaling(t_proj ***proj, t_stock *stock)
+{
+	int x;
+
+	x = 0;
 }
 
 int		draw_points(t_proj **proj, t_stock *stock)
@@ -71,18 +79,22 @@ int		draw_points(t_proj **proj, t_stock *stock)
 	stock->image = mlx_new_image(stock->mlx, WIN_W, WIN_H);
 	y = 0;
 	ft_putendl("yolo");
-	xpoint = check_lowest_xpoint(proj, stock);
-	ypoint = check_lowest_ypoint(proj, stock);
-	printf("xpoint = %d, ypoint = %d\n", xpoint, ypoint);
+//	ft_scaling(&proj, stock);
+	xpoint = check_lowest_xpoint(proj, stock) - 500;
+	ypoint = check_lowest_ypoint(proj, stock) - 200;
+	if (ypoint > 0)
+		ypoint = 0;
+	if (xpoint > 0)
+		xpoint = 0;
 	ft_putendl("yolo");
 	while (y < stock->linenum - 1)
 	{
 		x = 0;
 		while (x < stock->index[0][0] - 1)
 		{
-			draw_lines(proj[y][x].x+xpoint+50, proj[y][x].y+ypoint+100, proj[y][x+1].x+xpoint+50, proj[y][x+1].y+ypoint+100, stock);
+			draw_lines(proj[y][x].x-xpoint, proj[y][x].y-ypoint, proj[y][x+1].x-xpoint, proj[y][x+1].y-ypoint, stock);
+			draw_lines(proj[y][x].x-xpoint, proj[y][x].y-ypoint, proj[y+1][x].x-xpoint, proj[y+1][x].y-ypoint, stock);
 			x++;
-			printf("Abefore x : %d, y : %d x = %f ; y = %f ; z = %f\n", x, y, proj[y][x].x+xpoint, proj[y][x].y+ypoint, proj[y][x].z);
 		}
 		y++;
 	}

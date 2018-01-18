@@ -6,7 +6,7 @@
 /*   By: mabessir <mabessir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/17 13:31:39 by mabessir          #+#    #+#             */
-/*   Updated: 2018/01/17 14:19:15 by mabessir         ###   ########.fr       */
+/*   Updated: 2018/01/18 15:32:01 by mabessir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	check_lowest_xpoint(t_proj **proj, t_stock *stock)
 	while (y < stock->linenum)
 	{
 		x = 0;
-		while (x < stock->index[y][0])
+		while (x < stock->index[0][0])
 		{
 			if (proj[y][x].x < point)
 				point = proj[y][x].x;
@@ -31,7 +31,7 @@ int	check_lowest_xpoint(t_proj **proj, t_stock *stock)
 		}
 		y++;
 	}
-	return (point < 0 ? -point : point);
+	return (point);
 }
 
 int	check_lowest_ypoint(t_proj **proj, t_stock *stock)
@@ -45,7 +45,7 @@ int	check_lowest_ypoint(t_proj **proj, t_stock *stock)
 	while (y < stock->linenum)
 	{
 		x = 0;
-		while (x < stock->index[y][0])
+		while (x < stock->index[0][0])
 		{
 			if (proj[y][x].y < point)
 				point = proj[y][x].y;
@@ -53,7 +53,7 @@ int	check_lowest_ypoint(t_proj **proj, t_stock *stock)
 		}
 		y++;
 	}
-	return (point < 0 ? -point : point);
+	return (point);
 }
 
 int	check_highest_xpoint(t_proj **proj, t_stock *stock)

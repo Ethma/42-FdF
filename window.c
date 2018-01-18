@@ -6,7 +6,7 @@
 /*   By: mabessir <mabessir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/15 14:00:56 by mabessir          #+#    #+#             */
-/*   Updated: 2018/01/17 16:14:10 by mabessir         ###   ########.fr       */
+/*   Updated: 2018/01/18 15:50:12 by mabessir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,42 +39,51 @@ static	void	draw_lines_x(int x1, int y1, int x2, int y2, t_stock *stock)
 	int x;
 
 	x = x1;
-	if (x <= x2)
+	while (x <= x2)
 	{
-		while (x <= x2)
-		{
-			mlx_pixel_put_to_image(stock->image, x, y1+((y2 - y1) * (x - x1)) / (x2 - x1), 0xFFFFFF);
-			x++;
-		}
+		mlx_pixel_put_to_image(stock->image, x, y1+((y2 - y1) * (x - x1)) / (x2 - x1), 0xFFFFFF);
+		x++;
 	}
 }
 
 static	void	draw_lines_y(int x1, int y1, int x2, int y2, t_stock *stock)
 {
-	int x;
+	int y;
 
-	x = x1;
-	if (x <= x2)
+	y = y1;
+	while (y <= y2)
 	{
-		while (x <= x2)
-		{
-			mlx_pixel_put_to_image(stock->image, x, y1+((y2 - y1) * (x - x1)) / (x2 - x1), 0xFFFFFF);
-			x++;
-		}
+		mlx_pixel_put_to_image(stock->image, x1+((x2 - x1) * (y - y1)) / (y2 - y1), y, 0xFFFFFF);
+		y++;
 	}
 }
 
 void			draw_lines(int x1, int y1, int x2, int y2, t_stock *stock)
 {
-	int x;
-
-	x = x1;
-	if (x <= x2)
+	if (abs(x2 - x1) >= abs(y2 - y1))
 	{
-		while (x <= x2)
+		if (x2 >= x1)
+			draw_lines_x(x1, y1, x2, y2, stock);
+		else
+			draw_lines_x(x2, y2, x1, y1, stock);
+	}
+	else
+	{
+		if (y2 >= y1)
+			draw_lines_y(x2, y2, x1, y1, stock);
+		else
 		{
-			mlx_pixel_put_to_image(stock->image, x, y1+((y2 - y1) * (x - x1)) / (x2 - x1), 0xFFFFFF);
-			x++;
+			printf("Abefore x1 : %d, y1 : %d x2 = %d ; y2 = %d\n", x1, y1, x2, y2);
+				draw_lines_y(x2, y2, x1, y1, stock);
 		}
 	}
+/*	int x;
+
+	x = x1;
+	while (x <= x2)
+	{
+		mlx_pixel_put_to_image(stock->image, x, y1+((y2 - y1) * (x - x1)) / (x2 - x1), 0xFFFFFF);
+		x++;
+	}
+	*/
 }
