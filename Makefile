@@ -7,6 +7,8 @@ parse.c \
 calculus.c \
 window.c \
 points.c \
+exit.c \
+hooks.c \
 
 L        = -L./libft/ -lft -L./minilibx_macos/ -lmlx -framework OpenGL -framework AppKit \
 

@@ -6,7 +6,7 @@
 /*   By: mabessir <mabessir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/15 14:00:56 by mabessir          #+#    #+#             */
-/*   Updated: 2018/01/18 15:50:12 by mabessir         ###   ########.fr       */
+/*   Updated: 2018/01/22 15:42:11 by mabessir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static	void	draw_lines_x(int x1, int y1, int x2, int y2, t_stock *stock)
 	x = x1;
 	while (x <= x2)
 	{
-		mlx_pixel_put_to_image(stock->image, x, y1+((y2 - y1) * (x - x1)) / (x2 - x1), 0xFFFFFF);
+		mlx_pixel_put_to_image(stock->image, x, y1+((y2 - y1) * (x - x1)) / (x2 - x1), stock->color);
 		x++;
 	}
 }
@@ -53,7 +53,7 @@ static	void	draw_lines_y(int x1, int y1, int x2, int y2, t_stock *stock)
 	y = y1;
 	while (y <= y2)
 	{
-		mlx_pixel_put_to_image(stock->image, x1+((x2 - x1) * (y - y1)) / (y2 - y1), y, 0xFFFFFF);
+		mlx_pixel_put_to_image(stock->image, x1+((x2 - x1) * (y - y1)) / (y2 - y1), y, stock->color);
 		y++;
 	}
 }
@@ -72,18 +72,6 @@ void			draw_lines(int x1, int y1, int x2, int y2, t_stock *stock)
 		if (y2 >= y1)
 			draw_lines_y(x2, y2, x1, y1, stock);
 		else
-		{
-			printf("Abefore x1 : %d, y1 : %d x2 = %d ; y2 = %d\n", x1, y1, x2, y2);
 				draw_lines_y(x2, y2, x1, y1, stock);
-		}
 	}
-/*	int x;
-
-	x = x1;
-	while (x <= x2)
-	{
-		mlx_pixel_put_to_image(stock->image, x, y1+((y2 - y1) * (x - x1)) / (x2 - x1), 0xFFFFFF);
-		x++;
-	}
-	*/
 }

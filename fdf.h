@@ -6,7 +6,7 @@
 /*   By: mabessir <mabessir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/14 10:22:59 by mabessir          #+#    #+#             */
-/*   Updated: 2018/01/18 15:28:15 by mabessir         ###   ########.fr       */
+/*   Updated: 2018/01/22 16:32:50 by mabessir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,6 @@
 # include <math.h>
 # define WIN_H 1080
 # define WIN_W 1920
-typedef	struct		s_points
-{
-	int		x;
-	int		y;
-}					t_points;
 
 typedef struct		s_stock
 {
@@ -39,6 +34,7 @@ typedef struct		s_stock
 	double		lowest_ypoint;
 	double		highest_xpoint;
 	double		highest_ypoint;
+	int			color;
 }					t_stock;
 
 typedef	struct		s_proj
@@ -46,17 +42,21 @@ typedef	struct		s_proj
 	double		x;
 	double		y;
 	double		z;
+	double		height;
 }					t_proj;
 
-int		fdf_start(int fd, const char *str);
-t_proj	**ft_projections(t_stock *stock, t_proj **proj);
-t_proj	**ft_getheight(t_stock *stock);
-int		draw_points(t_proj **proj, t_stock *stock);
-t_proj	**ft_projections(t_stock *stock, t_proj **proj);
-void	mlx_pixel_put_to_image(void *img, int x, int y, int color);
-void	draw_lines(int x1, int y1, int x2, int y2, t_stock *stock);
-int		check_lowest_xpoint(t_proj **proj, t_stock *stock);
-int		check_lowest_ypoint(t_proj **proj, t_stock *stock);
-int		check_highest_ypoint(t_proj **proj, t_stock *stock);
-int		check_highest_xpoint(t_proj **proj, t_stock *stock);
+int				fdf_start(int fd, const char *str);
+t_proj			**ft_projections(t_stock *stock, t_proj **proj);
+t_proj			**ft_getheight(t_stock *stock);
+int				draw_points(t_proj **proj, t_stock *stock);
+t_proj			**ft_projections(t_stock *stock, t_proj **proj);
+void			mlx_pixel_put_to_image(void *img, int x, int y, int color);
+void			draw_lines(int x1, int y1, int x2, int y2, t_stock *stock);
+int				check_lowest_xpoint(t_proj **proj, t_stock *stock);
+int				check_lowest_ypoint(t_proj **proj, t_stock *stock);
+int				check_highest_ypoint(t_proj **proj, t_stock *stock);
+int				check_highest_xpoint(t_proj **proj, t_stock *stock);
+int				ft_color(double z);
+int				key_hook(int keycode, t_stock *stock);
+int				ft_exit(char *str, int i);
 #endif
