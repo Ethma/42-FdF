@@ -6,7 +6,7 @@
 /*   By: mabessir <mabessir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/11 13:02:08 by mabessir          #+#    #+#             */
-/*   Updated: 2018/01/24 16:08:51 by mabessir         ###   ########.fr       */
+/*   Updated: 2018/01/24 17:44:11 by mabessir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,21 +98,19 @@ int		draw_points(t_proj **proj, t_stock *stock)
 {
 	int	x;
 	int y;
-	int xpoint;
-	int ypoint;
 
-	
+	stock->x = 0;
+	stock->y = 0;
 	stock->mlx = mlx_init();
 	stock->window = mlx_new_window(stock->mlx, WIN_W, WIN_H, "FDF");
-	stock->image = mlx_new_image(stock->mlx, WIN_W, WIN_H);
-	
+	stock->image = mlx_new_image(stock->mlx, WIN_W, WIN_H);	
 	y = 0;
-	xpoint = check_lowest_xpoint(proj, stock) - 500;
-	ypoint = check_lowest_ypoint(proj, stock) - 200;
-	if (ypoint > 0)
-		ypoint = 0;
-	if (xpoint > 0)
-		xpoint = 0;
+	stock->xpoint = check_lowest_xpoint(proj, stock) - 500;
+	stock->ypoint = check_lowest_ypoint(proj, stock) - 200;
+	if (stock->ypoint > 0)
+		stock->ypoint = 0;
+	if (stock->xpoint > 0)
+		stock->xpoint = 0;
 	while (y < stock->linenum - 1)
 	{
 		x = 0;
@@ -120,14 +118,14 @@ int		draw_points(t_proj **proj, t_stock *stock)
 		{
 			
 			stock->color = ft_color(proj[y][x].height);
-			draw_lines(proj[y][x].x-xpoint, proj[y][x].y-ypoint, proj[y][x+1].x-xpoint, proj[y][x+1].y-ypoint, stock);
-			draw_lines(proj[y][x].x-xpoint, proj[y][x].y-ypoint, proj[y+1][x].x-xpoint, proj[y+1][x].y-ypoint, stock);
+			draw_lines(proj[y][x].x-stock->xpoint, proj[y][x].y-stock->ypoint, proj[y][x+1].x-stock->xpoint, proj[y][x+1].y-stock->ypoint, stock);
+			draw_lines(proj[y][x].x-stock->xpoint, proj[y][x].y-stock->ypoint, proj[y+1][x].x-stock->xpoint, proj[y+1][x].y-stock->ypoint, stock);
 			x++;
 		}
 		y++;
 	}
 	
-	mlx_put_image_to_window(stock->mlx, stock->window, stock->image, 0, 0);
+	mlx_put_image_to_window(stock->mlx, stock->window, stock->image, stock->x, stock->y);
 	mlx_destroy_image(stock->mlx, stock->image);
 	mlx_key_hook(stock->window, key_hook, 0);
 	mlx_loop(stock->mlx);

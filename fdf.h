@@ -6,7 +6,7 @@
 /*   By: mabessir <mabessir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/14 10:22:59 by mabessir          #+#    #+#             */
-/*   Updated: 2018/01/24 15:43:50 by mabessir         ###   ########.fr       */
+/*   Updated: 2018/01/24 17:40:52 by mabessir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,11 @@ typedef struct		s_stock
 	void		*mlx;
 	void		*window;
 	void		*image;
-	double		lowest_xpoint;
-	double		lowest_ypoint;
-	double		highest_xpoint;
-	double		highest_ypoint;
 	int			color;
+	int			xpoint;
+	int			ypoint;
+	int			y;
+	int			x;
 }					t_stock;
 
 typedef	struct		s_proj

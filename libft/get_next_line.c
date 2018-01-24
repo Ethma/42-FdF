@@ -6,74 +6,67 @@
 /*   By: mabessir <mabessir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/11 13:43:39 by mabessir          #+#    #+#             */
-/*   Updated: 2018/01/24 16:27:08 by mabessir         ###   ########.fr       */
+/*   Updated: 2018/01/24 17:22:27 by mabessir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-static int		rread(int const fd, char **str)
+static int	cut_line(char **pos, char **line)
 {
-	int		i;
-	char	*s;
-	char	buf[BUFF_SIZE + 1];
+	char *n_pos;
 
-	if ((i = read(fd, buf, BUFF_SIZE)) == -1)
-		return (-1);
-	buf[i] = '\0';
-	s = *str;
-	*str = ft_strjoin(*str, buf);
-	if (*s != 0)
-		free(s);
-	return (i);
-}
-
-static int		gline(char **str, char **line, char *s)
-{
-	int		i;
-	char	*buff;
-
-	i = 0;
-	if (*s == '\n')
-		i = 1;
-	*s = 0;
-	*line = ft_strjoin("", *str);
-	if (i == 0 && ft_strlen(*str) != 0)
+	if ((n_pos = ft_strchr(*pos, (int)'\n')))
 	{
-		*str = ft_strnew(1);
+		*line = ft_strsub(*pos, 0, n_pos - *pos);
+		ft_memmove(*pos, n_pos + 1, ft_strlen(n_pos));
+		n_pos = NULL;
 		return (1);
 	}
-	else if (i == 0 && !(ft_strlen(*str)))
-		return (0);
-	buff = *str;
-	*str = ft_strjoin(s + 1, "");
-	free(buff);
-	return (i);
+	return (0);
 }
 
-int				get_next_line(int const fd, char **line)
+static int	read_line(const int fd, char **pos, char **line)
 {
-	int			i;
-	char		*s;
-	static char	*str;
+	char	buf[BUFF_SIZE + 1];
+	char	*tmp;
+	int		ret;
 
-	if (str == 0)
-		str = "";
-	if (!line || BUFF_SIZE < 1)
-		return (-1);
-	i = BUFF_SIZE;
-	while (line)
+	while ((ret = read(fd, buf, BUFF_SIZE)))
 	{
-		s = str;
-		while (*s || i < BUFF_SIZE)
-		{
-			if (*s == '\n' || *s == 0)
-				return (gline(&str, line, s));
-			s++;
-		}
-		i = rread(fd, &str);
-		if (i == -1)
+		if (ret == -1)
 			return (-1);
+		buf[ret] = '\0';
+		tmp = NULL;
+		if (*pos)
+		{
+			tmp = ft_strdup(*pos);
+			ft_strdel(*(&pos));
+			*pos = ft_strjoin(tmp, buf);
+			ft_strdel(&tmp);
+		}
+		else
+			*pos = ft_strdup(buf);
+		if (cut_line(pos, line))
+			return (1);
 	}
 	return (0);
+}
+
+int			get_next_line(const int fd, char **line)
+{
+	static char	*pos;
+	int			ret;
+
+	if (fd < 0 || BUFF_SIZE < 1 || !line)
+		return (-1);
+	if (pos && cut_line(&pos, line))
+		return (1);
+	if ((ret = read_line(fd, &pos, line)) != 0)
+		return (ret);
+	if (pos == NULL || pos[0] == '\0')
+		return (0);
+	*line = pos;
+	pos = NULL;
+	return (1);
 }
