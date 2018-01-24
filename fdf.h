@@ -6,7 +6,7 @@
 /*   By: mabessir <mabessir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/14 10:22:59 by mabessir          #+#    #+#             */
-/*   Updated: 2018/01/22 16:32:50 by mabessir         ###   ########.fr       */
+/*   Updated: 2018/01/24 15:43:50 by mabessir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 
 typedef struct		s_stock
 {
-	int			**index;
+	int			index;
 	char		**tab;
 	int			**tabint;
 	int			linenum;
@@ -59,4 +59,5 @@ int				check_highest_xpoint(t_proj **proj, t_stock *stock);
 int				ft_color(double z);
 int				key_hook(int keycode, t_stock *stock);
 int				ft_exit(char *str, int i);
+int				ft_exit_finish(char *str, int i, t_stock *stock);
 #endif

@@ -6,7 +6,7 @@
 /*   By: mabessir <mabessir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/04 11:21:42 by mabessir          #+#    #+#             */
-/*   Updated: 2018/01/03 13:32:55 by mabessir         ###   ########.fr       */
+/*   Updated: 2018/01/24 14:17:02 by mabessir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # include <sys/types.h>
 # include <sys/stat.h>
 # include <fcntl.h>
-# define BUFF_SIZE 32
+# define BUFF_SIZE 800
 
 int get_next_line(const int fd, char **line);
 

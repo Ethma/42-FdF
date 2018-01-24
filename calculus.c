@@ -6,7 +6,7 @@
 /*   By: mabessir <mabessir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/11 13:02:08 by mabessir          #+#    #+#             */
-/*   Updated: 2018/01/22 16:28:06 by mabessir         ###   ########.fr       */
+/*   Updated: 2018/01/24 16:08:51 by mabessir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,17 +23,17 @@ t_proj		**ft_getheight(t_stock *stock)
 	y = 0;
 	while (y < stock->linenum)
 	{
-		if (!(proj[y] =(t_proj *)malloc(sizeof(t_proj) * stock->index[y][0])))
+		if (!(proj[y] =(t_proj *)malloc(sizeof(t_proj) * stock->index)))
 			ft_exit("Malloc ERROR", 1);
 		x = 0;
-		while (x < stock->index[0][0]) 
+		while (x < stock->index) 
 		{
 			proj[y][x].z = stock->tabint[y][x];
 			proj[y][x].height = stock->tabint[y][x];
 			proj[y][x].z = proj[y][x].z * -1;
-			proj[y][x].x = x * ((WIN_W / 2) / stock->index[0][0]);
+			proj[y][x].x = x * ((WIN_W / 2) / stock->index);
 			proj[y][x].y = y * ((WIN_H / 2) / stock->linenum);
-			proj[y][x].z = proj[y][x].z * ((WIN_W / 2) / stock->index[y][0]);
+			proj[y][x].z = proj[y][x].z * ((WIN_W / 2) / stock->index);
 			x++;
 		}
 		y++;
@@ -52,7 +52,7 @@ t_proj		**ft_projections(t_stock *stock, t_proj **proj)
 	while (y < stock->linenum)
 	{
 		x = 0;
-		while (x < stock->index[0][0])
+		while (x < stock->index)
 		{
 			proj[y][x].x = (0.5 * proj[y][x].x) - (0.75 * proj[y][x].y);
 			proj[y][x].y = proj[y][x].z + ((0.5 / 2) * proj[y][x].x) + ((0.75 / 2) * proj[y][x].y);
@@ -91,16 +91,7 @@ static	void	ft_freeproj(t_proj **proj, t_stock *stock)
 		proj[x] = NULL;
 		x++;
 	}
-	free (proj);
-	x = 0;
-	while (x < stock->linenum)
-	{
-		free(stock->index[x]);
-		stock->index[x] = NULL;
-		x++;
-	}
-	free(stock->index);
-	free(stock);
+	free(proj);
 }
 
 int		draw_points(t_proj **proj, t_stock *stock)
@@ -110,9 +101,11 @@ int		draw_points(t_proj **proj, t_stock *stock)
 	int xpoint;
 	int ypoint;
 
+	
 	stock->mlx = mlx_init();
 	stock->window = mlx_new_window(stock->mlx, WIN_W, WIN_H, "FDF");
 	stock->image = mlx_new_image(stock->mlx, WIN_W, WIN_H);
+	
 	y = 0;
 	xpoint = check_lowest_xpoint(proj, stock) - 500;
 	ypoint = check_lowest_ypoint(proj, stock) - 200;
@@ -123,8 +116,9 @@ int		draw_points(t_proj **proj, t_stock *stock)
 	while (y < stock->linenum - 1)
 	{
 		x = 0;
-		while (x < stock->index[0][0] - 1)
+		while (x < stock->index - 1)
 		{
+			
 			stock->color = ft_color(proj[y][x].height);
 			draw_lines(proj[y][x].x-xpoint, proj[y][x].y-ypoint, proj[y][x+1].x-xpoint, proj[y][x+1].y-ypoint, stock);
 			draw_lines(proj[y][x].x-xpoint, proj[y][x].y-ypoint, proj[y+1][x].x-xpoint, proj[y+1][x].y-ypoint, stock);
@@ -132,9 +126,11 @@ int		draw_points(t_proj **proj, t_stock *stock)
 		}
 		y++;
 	}
-	ft_freeproj(proj, stock);
+	
 	mlx_put_image_to_window(stock->mlx, stock->window, stock->image, 0, 0);
+	mlx_destroy_image(stock->mlx, stock->image);
 	mlx_key_hook(stock->window, key_hook, 0);
 	mlx_loop(stock->mlx);
+	ft_freeproj(proj, stock);
 	return (1);
 }

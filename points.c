@@ -6,7 +6,7 @@
 /*   By: mabessir <mabessir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/17 13:31:39 by mabessir          #+#    #+#             */
-/*   Updated: 2018/01/22 15:13:23 by mabessir         ###   ########.fr       */
+/*   Updated: 2018/01/24 13:35:27 by mabessir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	check_lowest_xpoint(t_proj **proj, t_stock *stock)
 	while (y < stock->linenum)
 	{
 		x = 0;
-		while (x < stock->index[0][0])
+		while (x < stock->index)
 		{
 			if (proj[y][x].x < point)
 				point = proj[y][x].x;
@@ -45,7 +45,7 @@ int	check_lowest_ypoint(t_proj **proj, t_stock *stock)
 	while (y < stock->linenum)
 	{
 		x = 0;
-		while (x < stock->index[0][0])
+		while (x < stock->index)
 		{
 			if (proj[y][x].y < point)
 				point = proj[y][x].y;
@@ -67,7 +67,7 @@ int	check_highest_xpoint(t_proj **proj, t_stock *stock)
 	while (y < stock->linenum)
 	{
 		x = 0;
-		while (x < stock->index[y][0])
+		while (x < stock->index)
 		{
 			if (proj[y][x].x > point)
 				point = proj[y][x].x;
@@ -89,7 +89,7 @@ int	check_highest_ypoint(t_proj **proj, t_stock *stock)
 	while (y < stock->linenum)
 	{
 		x = 0;
-		while (x < stock->index[y][0])
+		while (x < stock->index)
 		{
 			if (proj[y][x].y > point)
 				point = proj[y][x].y;
