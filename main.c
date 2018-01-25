@@ -6,23 +6,42 @@
 /*   By: mabessir <mabessir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/14 09:23:07 by mabessir          #+#    #+#             */
-/*   Updated: 2018/01/24 14:25:29 by mabessir         ###   ########.fr       */
+/*   Updated: 2018/01/25 15:11:43 by mabessir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-int		empty_file(int fd)
+static int		fdf_check(int fd, char *str)
 {
-	int ret;
-	char *buff[1];
+	int		ret;
+	char	*buff;
+	int		i;
 
-	if ((ret = read(fd, buff, 1)) <= 0)
+	i = 0;
+	buff = (char*)malloc(sizeof(char) * 1000000);
+	if (!(fd = open(str, O_RDONLY)))
 		return (0);
+	if ((ret = read(fd, buff, BUFFF_SIZE)) <= 0)
+	{
+		free(buff);
+		return (0);
+	}
+	while (buff[i])
+	{
+		if ((ft_isdigit(buff[i]) != 1) && buff[i] != '-' && buff[i] != '\n'
+		&& buff[i] != ' ')
+		{
+			free(buff);
+			return (0);
+		}
+		i++;
+	}
+	free(buff);
 	return (1);
 }
 
-int		main(int ac, char **av)
+int				main(int ac, char **av)
 {
 	int fd;
 
@@ -36,14 +55,11 @@ int		main(int ac, char **av)
 		ft_putendl("ERROR : only one file needed");
 		return (0);
 	}
-	if (!(fd = open(av[1], O_RDONLY)))
-		return (0);
-	if (empty_file(fd) == 0)
+	if (fdf_check(fd, av[1]) == 0)
 	{
 		ft_putendl("ERROR : File is incorrect or does not exist");
 		return (0);
 	}
-	close(fd);
 	if (!(fd = open(av[1], O_RDONLY)))
 		return (0);
 	if (fdf_start(fd, av[1]) == 1)

@@ -6,7 +6,7 @@
 /*   By: mabessir <mabessir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/15 14:00:56 by mabessir          #+#    #+#             */
-/*   Updated: 2018/01/22 15:42:11 by mabessir         ###   ########.fr       */
+/*   Updated: 2018/01/25 18:54:45 by mabessir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,20 +58,20 @@ static	void	draw_lines_y(int x1, int y1, int x2, int y2, t_stock *stock)
 	}
 }
 
-void			draw_lines(int x1, int y1, int x2, int y2, t_stock *stock)
+void			draw_lines(int x1, int x2, int y2, t_stock *stock)
 {
-	if (abs(x2 - x1) >= abs(y2 - y1))
+	if (abs(x2 - x1) >= abs(y2 - (int)stock->projy))
 	{
 		if (x2 >= x1)
-			draw_lines_x(x1, y1, x2, y2, stock);
+			draw_lines_x(x1, stock->projy, x2, y2, stock);
 		else
-			draw_lines_x(x2, y2, x1, y1, stock);
+			draw_lines_x(x2, y2, x1, stock->projy, stock);
 	}
 	else
 	{
-		if (y2 >= y1)
-			draw_lines_y(x2, y2, x1, y1, stock);
+		if (y2 >= stock->projy)
+			draw_lines_y(x2, x1, y2, stock->projy, stock);
 		else
-				draw_lines_y(x2, y2, x1, y1, stock);
+			draw_lines_y(x2, y2, x1, stock->projy, stock);
 	}
 }

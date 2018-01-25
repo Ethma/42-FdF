@@ -6,13 +6,16 @@
 /*   By: mabessir <mabessir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/11 13:02:08 by mabessir          #+#    #+#             */
-/*   Updated: 2018/01/24 17:44:11 by mabessir         ###   ########.fr       */
+/*   Updated: 2018/01/25 18:49:18 by mabessir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+#define X stock->x
+#define Y stock->y
+#define PROJY (proj[Y][X].y - stock->ypoint)
 
-t_proj		**ft_getheight(t_stock *stock)
+t_proj			**ft_getheight(t_stock *stock)
 {
 	t_proj	**proj;
 	int		x;
@@ -23,10 +26,10 @@ t_proj		**ft_getheight(t_stock *stock)
 	y = 0;
 	while (y < stock->linenum)
 	{
-		if (!(proj[y] =(t_proj *)malloc(sizeof(t_proj) * stock->index)))
+		if (!(proj[y] = (t_proj *)malloc(sizeof(t_proj) * stock->index)))
 			ft_exit("Malloc ERROR", 1);
-		x = 0;
-		while (x < stock->index) 
+		x = -1;
+		while (++x < stock->index)
 		{
 			proj[y][x].z = stock->tabint[y][x];
 			proj[y][x].height = stock->tabint[y][x];
@@ -34,7 +37,6 @@ t_proj		**ft_getheight(t_stock *stock)
 			proj[y][x].x = x * ((WIN_W / 2) / stock->index);
 			proj[y][x].y = y * ((WIN_H / 2) / stock->linenum);
 			proj[y][x].z = proj[y][x].z * ((WIN_W / 2) / stock->index);
-			x++;
 		}
 		y++;
 	}
@@ -42,7 +44,7 @@ t_proj		**ft_getheight(t_stock *stock)
 	return (proj);
 }
 
-t_proj		**ft_projections(t_stock *stock, t_proj **proj)
+t_proj			**ft_projections(t_stock *stock, t_proj **proj)
 {
 	int		x;
 	int		y;
@@ -55,7 +57,8 @@ t_proj		**ft_projections(t_stock *stock, t_proj **proj)
 		while (x < stock->index)
 		{
 			proj[y][x].x = (0.5 * proj[y][x].x) - (0.75 * proj[y][x].y);
-			proj[y][x].y = proj[y][x].z + ((0.5 / 2) * proj[y][x].x) + ((0.75 / 2) * proj[y][x].y);
+			proj[y][x].y = proj[y][x].z + ((0.5 / 2) * proj[y][x].x) +
+			((0.75 / 2) * proj[y][x].y);
 			x++;
 		}
 		y++;
@@ -63,7 +66,7 @@ t_proj		**ft_projections(t_stock *stock, t_proj **proj)
 	return (proj);
 }
 
-int ft_color(double z)
+int				ft_color(double z)
 {
 	if (z == 0)
 		return (0x00682F73);
@@ -80,54 +83,43 @@ int ft_color(double z)
 	return (0);
 }
 
-static	void	ft_freeproj(t_proj **proj, t_stock *stock)
+static void		xypoint(t_proj **proj, t_stock **stock)
 {
-	int x;
-
-	x = 0;
-	while (x < stock->linenum)
-	{
-		free(proj[x]);
-		proj[x] = NULL;
-		x++;
-	}
-	free(proj);
+	(*stock)->mlx = mlx_init();
+	(*stock)->window = mlx_new_window((*stock)->mlx, WIN_W, WIN_H, "FDF");
+	(*stock)->image = mlx_new_image((*stock)->mlx, WIN_W, WIN_H);
+	(*stock)->x = 0;
+	(*stock)->y = 0;
+	(*stock)->xpoint = check_lowest_xpoint(proj, *stock) - 500;
+	(*stock)->ypoint = check_lowest_ypoint(proj, *stock) - 200;
+	if ((*stock)->ypoint > 0)
+		(*stock)->ypoint = 0;
+	if ((*stock)->xpoint > 0)
+		(*stock)->xpoint = 0;
 }
 
-int		draw_points(t_proj **proj, t_stock *stock)
+int				draw_points(t_proj **proj, t_stock *stock)
 {
-	int	x;
-	int y;
-
-	stock->x = 0;
-	stock->y = 0;
-	stock->mlx = mlx_init();
-	stock->window = mlx_new_window(stock->mlx, WIN_W, WIN_H, "FDF");
-	stock->image = mlx_new_image(stock->mlx, WIN_W, WIN_H);	
-	y = 0;
-	stock->xpoint = check_lowest_xpoint(proj, stock) - 500;
-	stock->ypoint = check_lowest_ypoint(proj, stock) - 200;
-	if (stock->ypoint > 0)
-		stock->ypoint = 0;
-	if (stock->xpoint > 0)
-		stock->xpoint = 0;
-	while (y < stock->linenum - 1)
+	xypoint(proj, &stock);
+	Y = -1;
+	while (++Y < stock->linenum - 1)
 	{
-		x = 0;
-		while (x < stock->index - 1)
+		X = -1;
+		while (++X < stock->index - 1)
 		{
-			
-			stock->color = ft_color(proj[y][x].height);
-			draw_lines(proj[y][x].x-stock->xpoint, proj[y][x].y-stock->ypoint, proj[y][x+1].x-stock->xpoint, proj[y][x+1].y-stock->ypoint, stock);
-			draw_lines(proj[y][x].x-stock->xpoint, proj[y][x].y-stock->ypoint, proj[y+1][x].x-stock->xpoint, proj[y+1][x].y-stock->ypoint, stock);
-			x++;
+			stock->projy = PROJY;
+			stock->color = ft_color(proj[Y][X].height);
+			draw_lines(proj[Y][X].x - stock->xpoint,
+			proj[Y][X + 1].x - stock->xpoint,
+			proj[Y][X + 1].y - stock->ypoint, stock);
+			draw_lines(proj[Y][X].x - stock->xpoint,
+			proj[Y + 1][X].x - stock->xpoint,
+			proj[Y + 1][X].y - stock->ypoint, stock);
 		}
-		y++;
 	}
-	
-	mlx_put_image_to_window(stock->mlx, stock->window, stock->image, stock->x, stock->y);
-	mlx_destroy_image(stock->mlx, stock->image);
-	mlx_key_hook(stock->window, key_hook, 0);
+	mlx_put_image_to_window(stock->mlx, stock->window, stock->image,
+	stock->x, stock->y);
+	mlx_key_hook(stock->window, key_hook, stock);
 	mlx_loop(stock->mlx);
 	ft_freeproj(proj, stock);
 	return (1);

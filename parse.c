@@ -6,7 +6,7 @@
 /*   By: mabessir <mabessir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/14 09:05:11 by mabessir          #+#    #+#             */
-/*   Updated: 2018/01/24 17:25:47 by mabessir         ###   ########.fr       */
+/*   Updated: 2018/01/25 16:30:42 by mabessir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ static	void	ft_get_tabint(int fd, t_stock *stock, char *line)
 	close(fd);
 }
 
-int			fdf_start(int fd, const char *str)
+int				fdf_start(int fd, const char *str)
 {
 	char	*line;
 	t_stock	stock;
