@@ -6,7 +6,7 @@
 /*   By: mabessir <mabessir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/14 10:22:59 by mabessir          #+#    #+#             */
-/*   Updated: 2018/01/25 18:49:58 by mabessir         ###   ########.fr       */
+/*   Updated: 2018/01/26 16:38:28 by mabessir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,4 +66,12 @@ int					ft_exit_finish(char *str, int i, t_stock *stock);
 void				fdf_end(t_proj **proj, t_stock *stock);
 void				ft_freeproj(t_proj **proj, t_stock *stock);
 void				keykey(int i, t_stock *stock);
+void				draw_lines_y2(int x1, int y1, int x2,
+t_stock *stock);
+void				draw_lines_y(int x1, int x2, int y2,
+t_stock *stock);
+void				draw_lines_x2(int x1, int y1, int x2,
+t_stock *stock);
+void				draw_lines_x(int x1, int x2, int y2,
+t_stock *stock);
 #endif
