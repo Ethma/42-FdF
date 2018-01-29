@@ -6,7 +6,7 @@
 /*   By: mabessir <mabessir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/15 14:00:56 by mabessir          #+#    #+#             */
-/*   Updated: 2018/01/26 17:08:52 by mabessir         ###   ########.fr       */
+/*   Updated: 2018/01/29 10:04:30 by mabessir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void			mlx_pixel_put_to_image(void *img, int x, int y, int color)
 	int		endian;
 	int		i;
 
-	if (x < 0 || y < 0 || x >= WIN_W || y >= WIN_H)
+	if (x >= WIN_W || y >= WIN_H)
 		return ;
 	data = mlx_get_data_addr(img, &bpp, &sizeline, &endian);
 	i = x * (bpp / 8) + y * sizeline;

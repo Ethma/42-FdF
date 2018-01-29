@@ -6,7 +6,7 @@
 /*   By: mabessir <mabessir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/26 16:24:14 by mabessir          #+#    #+#             */
-/*   Updated: 2018/01/26 17:17:22 by mabessir         ###   ########.fr       */
+/*   Updated: 2018/01/29 10:06:05 by mabessir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ void	draw_lines_x(int x1, int x2, int y2, t_stock *stock)
 		mlx_pixel_put_to_image(stock->image, x, y1 + ((y2 - y1) *
 		(x - x1)) / (x2 - x1), stock->color);
 		x++;
-		ft_putendl("bla");
 	}
 }
 
@@ -40,7 +39,6 @@ void	draw_lines_y(int x1, int x2, int y2, t_stock *stock)
 		mlx_pixel_put_to_image(stock->image, x1 + ((x2 - x1) * (y - y1)) /
 		(y2 - y1), y, stock->color);
 		y++;
-		ft_putendl("bla");
 	}
 }
 
@@ -56,7 +54,6 @@ void	draw_lines_x2(int x1, int y1, int x2, t_stock *stock)
 		mlx_pixel_put_to_image(stock->image, x, y1 + ((y2 - y1) *
 		(x - x1)) / (x2 - x1), stock->color);
 		x++;
-		ft_putendl("bla");
 	}
 }
 
@@ -72,6 +69,5 @@ void	draw_lines_y2(int x1, int y1, int x2, t_stock *stock)
 		mlx_pixel_put_to_image(stock->image, x1 + ((x2 - x1) *
 		(y - y1)) / (y2 - y1), y, stock->color);
 		y++;
-		ft_putendl("bla");
 	}
 }
